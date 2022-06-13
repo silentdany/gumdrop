@@ -12,9 +12,9 @@ import {
   MenuItem,
   Select,
   Stack,
-  Step,
-  StepLabel,
-  Stepper,
+  // Step,
+  // StepLabel,
+  // Stepper,
   TextField,
 } from '@mui/material';
 
@@ -1179,7 +1179,7 @@ export const Claim = (props: RouteComponentProps<ClaimProps>) => {
         <Button
           disabled={!wallet || !program || !OTPStr || loading}
           variant="contained"
-          color="secondary"
+          color="primary"
           style={{ width: '100%' }}
           onClick={e => {
             setLoading(true);
@@ -1200,7 +1200,7 @@ export const Claim = (props: RouteComponentProps<ClaimProps>) => {
             wrap();
           }}
         >
-          Claim Gumdrop
+          Obtenir son badge
         </Button>
         {loading && loadingProgress()}
       </Box>
@@ -1251,7 +1251,7 @@ export const Claim = (props: RouteComponentProps<ClaimProps>) => {
           />
           <TextField
             id="edition-text-field"
-            label="Edition"
+            label="Numéro d'édition"
             value={editionStr}
             onChange={e => setEditionStr(e.target.value)}
             disabled={!editable}
@@ -1264,116 +1264,133 @@ export const Claim = (props: RouteComponentProps<ClaimProps>) => {
   const populateClaimC = onClick => (
     <React.Fragment>
       <Box />
-      <FormControl fullWidth>
-        <InputLabel id="claim-method-label" disabled={!editable}>
-          Gumdrop Type
-        </InputLabel>
-        <Select
-          labelId="claim-method-label"
-          id="claim-method-select"
-          value={claimMethod}
-          label="Claim Method"
-          onChange={e => {
-            setClaimMethod(e.target.value);
-          }}
-          style={{ textAlign: 'left' }}
-          disabled={!editable}
-        >
-          <MenuItem value={'transfer'}>Token Transfer</MenuItem>
-          <MenuItem value={'candy'}>Candy Machine</MenuItem>
-          <MenuItem value={'edition'}>Limited Edition</MenuItem>
-        </Select>
-      </FormControl>
-      <TextField
-        id="distributor-text-field"
-        label="Gumdrop Address"
-        value={distributor}
-        onChange={e => setDistributor(e.target.value)}
-        disabled={!editable}
-      />
-      <TextField
-        id="handle-text-field"
-        label="Handle"
-        value={handle}
-        onChange={e => setHandle(e.target.value)}
-        disabled={!editable}
-      />
-      {claimMethod !== 'edition' && (
-        <TextField
-          id="amount-text-field"
-          label="Amount"
-          value={amountStr}
-          onChange={e => setAmount(e.target.value)}
-          disabled={!editable}
-        />
-      )}
-      {claimMethod !== '' && claimData(claimMethod)}
+      <Box>
+        <p className="claim-title">Badge de membre</p>
+      </Box>
 
-      <CollapsePanel
-        id="additional-parameters"
-        panelName="Additional Parameters"
-      >
-        <Stack spacing={2}>
-          <FormControl fullWidth>
-            <InputLabel id="comm-method-label" disabled={!editable}>
-              Distribution Method
-            </InputLabel>
-            <Select
-              labelId="comm-method-label"
-              id="comm-method-select"
-              value={commMethod}
-              label="Distribution Method"
-              onChange={e => {
-                if (e.target.value === 'discord') {
-                  notify({
-                    message: 'Discord distribution unavailable',
-                    description:
-                      'Please use the CLI for this. Discord does not support browser-connection requests',
-                  });
-                  return;
-                }
-                localStorage.setItem('commMethod', e.target.value as string);
-                setCommMethod(e.target.value);
-              }}
-              style={{ textAlign: 'left' }}
-              disabled={!editable}
-            >
-              <MenuItem value={'aws-email'}>AWS Email</MenuItem>
-              <MenuItem value={'aws-sms'}>AWS SMS</MenuItem>
-              <MenuItem value={'discord'}>Discord</MenuItem>
-              <MenuItem value={'wallets'}>Wallets</MenuItem>
-              <MenuItem value={'manual'}>Manual</MenuItem>
-            </Select>
-          </FormControl>
-          <TextField
-            id="index-text-field"
-            label="Index"
-            value={indexStr}
-            onChange={e => setIndex(e.target.value)}
-            disabled={!editable}
-          />
-          {params.pin !== 'NA' && (
+      {wallet ? (
+        <CollapsePanel id="technicals-data" panelName="Données techniques">
+          <Stack spacing={2}>
+            <FormControl fullWidth>
+              <InputLabel id="claim-method-label" disabled={!editable}>
+                Type de Gumdrop
+              </InputLabel>
+              <Select
+                labelId="claim-method-label"
+                id="claim-method-select"
+                value={claimMethod}
+                label="Méthode d'acquisition"
+                onChange={e => {
+                  setClaimMethod(e.target.value);
+                }}
+                style={{ textAlign: 'left' }}
+                disabled={!editable}
+              >
+                <MenuItem value={'transfer'}>Transfert de token</MenuItem>
+                <MenuItem value={'candy'}>Candy Machine</MenuItem>
+                <MenuItem value={'edition'}>Edition Limitée</MenuItem>
+              </Select>
+            </FormControl>
             <TextField
-              id="pin-text-field"
-              label="Pin"
-              value={pinStr}
-              onChange={e => setPin(e.target.value)}
+              id="distributor-text-field"
+              label="Adresse du Gumdrop"
+              value={distributor}
+              onChange={e => setDistributor(e.target.value)}
               disabled={!editable}
             />
-          )}
-          <TextField
-            id="proof-text-field"
-            label="Proof"
-            multiline
-            value={proofStr}
-            onChange={e => setProof(e.target.value)}
-            disabled={!editable}
-          />
-          <Button onClick={() => setEditable(!editable)}>
-            {!editable ? 'Edit Claim' : 'Stop Editing'}
-          </Button>
-        </Stack>
-      </CollapsePanel>
+            <TextField
+              id="handle-text-field"
+              label="Handle"
+              value={handle}
+              onChange={e => setHandle(e.target.value)}
+              disabled={!editable}
+            />
+            {claimMethod !== 'edition' && (
+              <TextField
+                id="amount-text-field"
+                label="Amount"
+                value={amountStr}
+                onChange={e => setAmount(e.target.value)}
+                disabled={!editable}
+              />
+            )}
+            {claimMethod !== '' && claimData(claimMethod)}
+
+            <CollapsePanel
+              id="additional-parameters"
+              panelName="Paramètres additionnels"
+            >
+              <Stack spacing={2}>
+                <FormControl fullWidth>
+                  <InputLabel id="comm-method-label" disabled={!editable}>
+                    Méthode de distribution
+                  </InputLabel>
+                  <Select
+                    labelId="comm-method-label"
+                    id="comm-method-select"
+                    value={commMethod}
+                    label="Méthode de distribution"
+                    onChange={e => {
+                      if (e.target.value === 'discord') {
+                        notify({
+                          message: 'Discord distribution unavailable',
+                          description:
+                            'Please use the CLI for this. Discord does not support browser-connection requests',
+                        });
+                        return;
+                      }
+                      localStorage.setItem(
+                        'commMethod',
+                        e.target.value as string,
+                      );
+                      setCommMethod(e.target.value);
+                    }}
+                    style={{ textAlign: 'left' }}
+                    disabled={!editable}
+                  >
+                    <MenuItem value={'aws-email'}>AWS Email</MenuItem>
+                    <MenuItem value={'aws-sms'}>AWS SMS</MenuItem>
+                    <MenuItem value={'discord'}>Discord</MenuItem>
+                    <MenuItem value={'wallets'}>Wallets</MenuItem>
+                    <MenuItem value={'manual'}>Manual</MenuItem>
+                  </Select>
+                </FormControl>
+                <TextField
+                  id="index-text-field"
+                  label="Index"
+                  value={indexStr}
+                  onChange={e => setIndex(e.target.value)}
+                  disabled={!editable}
+                />
+                {params.pin !== 'NA' && (
+                  <TextField
+                    id="pin-text-field"
+                    label="Pin"
+                    value={pinStr}
+                    onChange={e => setPin(e.target.value)}
+                    disabled={!editable}
+                  />
+                )}
+                <TextField
+                  id="proof-text-field"
+                  label="Preuve"
+                  multiline
+                  value={proofStr}
+                  onChange={e => setProof(e.target.value)}
+                  disabled={!editable}
+                />
+                <Button disabled onClick={() => setEditable(!editable)}>
+                  {!editable ? 'Editer Gumdrop' : 'Stop Edition'}
+                </Button>
+              </Stack>
+            </CollapsePanel>
+          </Stack>
+        </CollapsePanel>
+      ) : (
+        <Box style={{ flex: 1 }}>
+          <p>Connectez votre portefeuille.</p>
+        </Box>
+      )}
 
       <Box />
 
@@ -1381,8 +1398,9 @@ export const Claim = (props: RouteComponentProps<ClaimProps>) => {
         <Button
           disabled={!wallet || !program || !allFieldsPopulated || loading}
           variant="contained"
+          className="btn-claim"
           style={{ width: '100%' }}
-          color={asyncNeedsTemporalSigner ? 'primary' : 'secondary'}
+          color={asyncNeedsTemporalSigner ? 'secondary' : 'primary'}
           onClick={e => {
             setLoading(true);
             const wrap = async () => {
@@ -1418,7 +1436,7 @@ export const Claim = (props: RouteComponentProps<ClaimProps>) => {
             wrap();
           }}
         >
-          {asyncNeedsTemporalSigner ? 'Next' : 'Claim Gumdrop'}
+          {asyncNeedsTemporalSigner ? 'En attente...' : 'Réclamer son badge'}
         </Button>
         {loading && loadingProgress()}
       </Box>
@@ -1449,19 +1467,19 @@ export const Claim = (props: RouteComponentProps<ClaimProps>) => {
     setActiveStep(prev => prev - 1);
   };
 
-  const stepper = (
-    <React.Fragment>
-      <Stepper activeStep={stepToUse}>
-        {steps.map(s => {
-          return (
-            <Step key={s.name}>
-              <StepLabel>{s.name}</StepLabel>
-            </Step>
-          );
-        })}
-      </Stepper>
-    </React.Fragment>
-  );
+  // const stepper = (
+  //   <React.Fragment>
+  //     <Stepper activeStep={stepToUse}>
+  //       {steps.map(s => {
+  //         return (
+  //           <Step key={s.name}>
+  //             <StepLabel>{s.name}</StepLabel>
+  //           </Step>
+  //         );
+  //       })}
+  //     </Stepper>
+  //   </React.Fragment>
+  // );
 
   const maxWidth = 960;
   const { width } = useWindowDimensions();
@@ -1474,7 +1492,7 @@ export const Claim = (props: RouteComponentProps<ClaimProps>) => {
         maxWidth: Math.min(width, maxWidth),
       }}
     >
-      {asyncNeedsTemporalSigner && stepper}
+      {/* {asyncNeedsTemporalSigner && stepper} */}
       {steps[stepToUse].inner(handleNext)}
       {stepToUse > 0 && <Button onClick={handleBack}>Back</Button>}
     </Stack>

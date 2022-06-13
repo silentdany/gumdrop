@@ -50,18 +50,22 @@ export const WalletModal: FC = () => {
   const phatomWallet = useMemo(() => getPhantomWallet(), []);
 
   return (
-    <MetaplexModal title="Connect Wallet" visible={visible} onCancel={close}>
+    <MetaplexModal
+      title="Conecter un portefeuille"
+      visible={visible}
+      onCancel={close}
+    >
       <span
         style={{
           color: 'rgba(255, 255, 255, 0.75)',
           fontSize: '14px',
           lineHeight: '14px',
-          fontFamily: 'GraphikWeb',
+          fontFamily: 'Poppins',
           letterSpacing: '0.02em',
           marginBottom: 14,
         }}
       >
-        RECOMMENDED
+        Recommandé
       </span>
 
       <Button
@@ -73,9 +77,9 @@ export const WalletModal: FC = () => {
         }}
       >
         <img src={phatomWallet?.icon} style={{ width: '1.2rem' }} />
-        &nbsp;Connect to Phantom
+        &nbsp;Se connecter à Phantom
       </Button>
-      <CollapsePanel id="other-wallets" panelName="Other Wallets">
+      <CollapsePanel id="other-wallets" panelName="Autres portefeuilles">
         {wallets.map((wallet, idx) => {
           if (wallet.name === 'Phantom') return null;
 
@@ -91,7 +95,7 @@ export const WalletModal: FC = () => {
                 close();
               }}
             >
-              Connect to {wallet.name}
+              Se connecter à {wallet.name}
             </Button>
           );
         })}

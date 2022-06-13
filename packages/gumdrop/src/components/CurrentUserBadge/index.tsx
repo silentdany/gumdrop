@@ -217,7 +217,7 @@ export const CurrentUserBadge = (props: {
                       paddingLeft: 0,
                     }}
                   >
-                    Disconnect
+                    Déconnecter
                   </Button>
                 </div>
               </div>
@@ -382,7 +382,7 @@ export const CurrentUserBadgeMobile = (props: {
       </div>
       <div className="actions-buttons">
         <Button className="black-btn" onClick={disconnect}>
-          Disconnect
+          Déconnecter
         </Button>
       </div>
     </div>

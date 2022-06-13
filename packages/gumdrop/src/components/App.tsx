@@ -10,7 +10,7 @@ import { SPLTokenListProvider } from '../contexts/tokenList';
 import { WalletProvider } from '../contexts/WalletContext';
 import { AppLayout } from './Layout';
 
-import { About } from './About';
+// import { About } from './About';
 import { Claim } from './Claim';
 
 export const App = () => {
@@ -18,10 +18,10 @@ export const App = () => {
     palette: {
       mode: 'dark',
       primary: {
-        main: '#d0bdf4',
+        main: '#F97031',
       },
       secondary: {
-        main: '#8458B3',
+        main: '#F97316',
       },
     },
   });
@@ -35,7 +35,7 @@ export const App = () => {
                 <WalletProvider>
                   <AppLayout>
                     <Switch>
-                      <Route exact path="/" component={About} />
+                      {/* <Route exact path="/" component={About} /> */}
                       <Route exact path="/claim" component={Claim} />
                     </Switch>
                   </AppLayout>
