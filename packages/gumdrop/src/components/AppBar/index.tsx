@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { Button, Modal } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
@@ -12,6 +12,8 @@ import {
   CurrentUserBadgeMobile,
 } from '../CurrentUserBadge';
 import { ConnectButton } from '../ConnectButton';
+
+import eclypseLogo from '../../../../../../eclypseNftData/logo_small.png';
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
@@ -41,7 +43,7 @@ export function useWindowDimensions() {
 export const LogoLink = () => {
   return (
     <Link to={`/`}>
-      <p className={'app-logo'}>GUMDROP</p>
+      <p className={'app-logo'}>Eclypse</p>
     </Link>
   );
 };
@@ -247,13 +249,15 @@ const gumballsSvg = (filled: boolean) => {
 
 export const AppBar = () => {
   const { connected } = useWallet();
-  const location = useLocation();
+  // const location = useLocation();
   return (
     <>
       <MobileNavbar />
       <div id="desktop-navbar">
         <div className="app-left">
-          <LogoLink />
+          {/* <LogoLink /> */}
+          <img src={eclypseLogo} alt="logo" />
+          <p className="app-logo-title"> / Réclamer le badge de membre</p>
         </div>
         <div className="app-right">
           {!connected && (
@@ -268,7 +272,7 @@ export const AppBar = () => {
                 showAddress={true}
                 iconSize={24}
               />
-              <div className="wallet-wrapper">
+              {/* <div className="wallet-wrapper">
                 <Button className="wallet-key">
                   <Link to="/">{homeSvg(location.pathname === '/')}</Link>
                 </Button>
@@ -280,7 +284,7 @@ export const AppBar = () => {
                   </Link>
                 </Button>
               </div>
-              <Cog />
+              <Cog /> */}
             </>
           )}
         </div>
