@@ -12,7 +12,7 @@ import {
 } from '../CurrentUserBadge';
 import { ConnectButton } from '../ConnectButton';
 
-import eclypseLogo from '../../../../../../eclypseNftData/logo_small.png';
+import eclypseLogo from '../../media/logo_small.png';
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
