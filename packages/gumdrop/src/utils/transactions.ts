@@ -33,7 +33,7 @@ export const envFor = (connection: Connection): string => {
   if (match[1]) {
     return match[1];
   }
-  return 'mainnet-beta';
+  return 'devnet';
 };
 
 export const explorerLinkFor = (

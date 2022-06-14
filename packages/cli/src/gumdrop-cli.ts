@@ -95,7 +95,7 @@ programCommand('create')
   .option(
     '--host <string>',
     'Website to claim gumdrop',
-    'https://eclypse-badge.vercel.app/',
+    'https://eclypse-badge.vercel.app',
   )
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   .action(async (options, cmd) => {
