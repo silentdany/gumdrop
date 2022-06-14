@@ -4,7 +4,7 @@
   "author": "Lawrence Wu <larry.wu@solana.com>",
   "license": "MIT",
   "scripts": {
-    "build": "yarn run clean-dist && webpack --config=configs/webpack/dev.js && cp src/404.html dist",
+    "build": "yarn run clean-dist && webpack --config=configs/webpack/prod.js && cp src/404.html dist",
     "clean-dist": "rimraf dist/*",
     "lint": "eslint './src/**/*.{js,ts,tsx}' --quiet",
     "start": "yarn run start-dev",

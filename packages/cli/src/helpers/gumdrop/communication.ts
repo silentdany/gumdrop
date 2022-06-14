@@ -59,7 +59,7 @@ export const formatDropMessage = (
           'Clic sur le lien suivant pour accéder à la page de mint : ',
         ) +
         `\n` +
-        'Utilise le wallet sur lequel tu détiens tes vaisseaux Star Atlas pour apparaître dans la flotte de guilde ! Les frais sont minimaux (0.002SOL)',
+        'Utilise le wallet sur lequel tu détiens tes vaisseaux Star Atlas pour apparaître dans la flotte de guilde ! Les frais sont minimaux (environ 0.015SOL)',
     };
   } else {
     throw new Error(`Internal Error: Unknown drop type ${drop.type}`);
