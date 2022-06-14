@@ -48,14 +48,18 @@ export const formatDropMessage = (
     };
   } else if (drop.type === 'Edition') {
     return {
-      subject: 'Gumdrop NFT Drop',
+      subject: 'Badge de membre Eclypse',
       message:
-        `You received ${info.amount} limited-edition print(s) ` +
-        `(click ${wrap(
-          drop.meta,
-          'here',
-        )} to view the master edition mint on explorer). ` +
-        wrap(info.url, 'Click here to claim them!'),
+        `Salut Eclypsien !` +
+        `\n` +
+        `En tant que nouveau membre de la guilde Eclypse, tu as la possibilité de demander ${info.amount} badge officiel de membre.` +
+        `\n` +
+        wrap(
+          info.url,
+          'Clic sur le lien suivant pour accéder à la page de mint : ',
+        ) +
+        `\n` +
+        'Utilise le wallet sur lequel tu détiens tes vaisseaux Star Atlas pour apparaître dans la flotte de guilde ! Les frais sont minimaux (0.002SOL)',
     };
   } else {
     throw new Error(`Internal Error: Unknown drop type ${drop.type}`);
