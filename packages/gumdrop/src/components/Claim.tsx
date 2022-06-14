@@ -1268,129 +1268,131 @@ export const Claim = (props: RouteComponentProps<ClaimProps>) => {
         <p className="claim-title">Badge de membre</p>
       </Box>
 
-      {wallet ? (
-        <CollapsePanel id="technicals-data" panelName="Données techniques">
-          <Stack spacing={2}>
-            <FormControl fullWidth>
-              <InputLabel id="claim-method-label" disabled={!editable}>
-                Type de Gumdrop
-              </InputLabel>
-              <Select
-                labelId="claim-method-label"
-                id="claim-method-select"
-                value={claimMethod}
-                label="Méthode d'acquisition"
-                onChange={e => {
-                  setClaimMethod(e.target.value);
-                }}
-                style={{ textAlign: 'left' }}
-                disabled={!editable}
-              >
-                <MenuItem value={'transfer'}>Transfert de token</MenuItem>
-                <MenuItem value={'candy'}>Candy Machine</MenuItem>
-                <MenuItem value={'edition'}>Edition Limitée</MenuItem>
-              </Select>
-            </FormControl>
-            <TextField
-              id="distributor-text-field"
-              label="Adresse du Gumdrop"
-              value={distributor}
-              onChange={e => setDistributor(e.target.value)}
-              disabled={!editable}
-            />
-            <TextField
-              id="handle-text-field"
-              label="Handle"
-              value={handle}
-              onChange={e => setHandle(e.target.value)}
-              disabled={!editable}
-            />
-            {claimMethod !== 'edition' && (
+      <Box style={{ flex: 1 }}>
+        {wallet ? (
+          <CollapsePanel id="technicals-data" panelName="Données techniques">
+            <Stack spacing={2}>
+              <FormControl fullWidth>
+                <InputLabel id="claim-method-label" disabled={!editable}>
+                  Type de Gumdrop
+                </InputLabel>
+                <Select
+                  labelId="claim-method-label"
+                  id="claim-method-select"
+                  value={claimMethod}
+                  label="Méthode d'acquisition"
+                  onChange={e => {
+                    setClaimMethod(e.target.value);
+                  }}
+                  style={{ textAlign: 'left' }}
+                  disabled={!editable}
+                >
+                  <MenuItem value={'transfer'}>Transfert de token</MenuItem>
+                  <MenuItem value={'candy'}>Candy Machine</MenuItem>
+                  <MenuItem value={'edition'}>Edition Limitée</MenuItem>
+                </Select>
+              </FormControl>
               <TextField
-                id="amount-text-field"
-                label="Amount"
-                value={amountStr}
-                onChange={e => setAmount(e.target.value)}
+                id="distributor-text-field"
+                label="Adresse du Gumdrop"
+                value={distributor}
+                onChange={e => setDistributor(e.target.value)}
                 disabled={!editable}
               />
-            )}
-            {claimMethod !== '' && claimData(claimMethod)}
-
-            <CollapsePanel
-              id="additional-parameters"
-              panelName="Paramètres additionnels"
-            >
-              <Stack spacing={2}>
-                <FormControl fullWidth>
-                  <InputLabel id="comm-method-label" disabled={!editable}>
-                    Méthode de distribution
-                  </InputLabel>
-                  <Select
-                    labelId="comm-method-label"
-                    id="comm-method-select"
-                    value={commMethod}
-                    label="Méthode de distribution"
-                    onChange={e => {
-                      if (e.target.value === 'discord') {
-                        notify({
-                          message: 'Discord distribution unavailable',
-                          description:
-                            'Please use the CLI for this. Discord does not support browser-connection requests',
-                        });
-                        return;
-                      }
-                      localStorage.setItem(
-                        'commMethod',
-                        e.target.value as string,
-                      );
-                      setCommMethod(e.target.value);
-                    }}
-                    style={{ textAlign: 'left' }}
-                    disabled={!editable}
-                  >
-                    <MenuItem value={'aws-email'}>AWS Email</MenuItem>
-                    <MenuItem value={'aws-sms'}>AWS SMS</MenuItem>
-                    <MenuItem value={'discord'}>Discord</MenuItem>
-                    <MenuItem value={'wallets'}>Wallets</MenuItem>
-                    <MenuItem value={'manual'}>Manual</MenuItem>
-                  </Select>
-                </FormControl>
+              <TextField
+                id="handle-text-field"
+                label="Handle"
+                value={handle}
+                onChange={e => setHandle(e.target.value)}
+                disabled={!editable}
+              />
+              {claimMethod !== 'edition' && (
                 <TextField
-                  id="index-text-field"
-                  label="Index"
-                  value={indexStr}
-                  onChange={e => setIndex(e.target.value)}
+                  id="amount-text-field"
+                  label="Amount"
+                  value={amountStr}
+                  onChange={e => setAmount(e.target.value)}
                   disabled={!editable}
                 />
-                {params.pin !== 'NA' && (
+              )}
+              {claimMethod !== '' && claimData(claimMethod)}
+
+              <CollapsePanel
+                id="additional-parameters"
+                panelName="Paramètres additionnels"
+              >
+                <Stack spacing={2}>
+                  <FormControl fullWidth>
+                    <InputLabel id="comm-method-label" disabled={!editable}>
+                      Méthode de distribution
+                    </InputLabel>
+                    <Select
+                      labelId="comm-method-label"
+                      id="comm-method-select"
+                      value={commMethod}
+                      label="Méthode de distribution"
+                      onChange={e => {
+                        if (e.target.value === 'discord') {
+                          notify({
+                            message: 'Discord distribution unavailable',
+                            description:
+                              'Please use the CLI for this. Discord does not support browser-connection requests',
+                          });
+                          return;
+                        }
+                        localStorage.setItem(
+                          'commMethod',
+                          e.target.value as string,
+                        );
+                        setCommMethod(e.target.value);
+                      }}
+                      style={{ textAlign: 'left' }}
+                      disabled={!editable}
+                    >
+                      <MenuItem value={'aws-email'}>AWS Email</MenuItem>
+                      <MenuItem value={'aws-sms'}>AWS SMS</MenuItem>
+                      <MenuItem value={'discord'}>Discord</MenuItem>
+                      <MenuItem value={'wallets'}>Wallets</MenuItem>
+                      <MenuItem value={'manual'}>Manual</MenuItem>
+                    </Select>
+                  </FormControl>
                   <TextField
-                    id="pin-text-field"
-                    label="Pin"
-                    value={pinStr}
-                    onChange={e => setPin(e.target.value)}
+                    id="index-text-field"
+                    label="Index"
+                    value={indexStr}
+                    onChange={e => setIndex(e.target.value)}
                     disabled={!editable}
                   />
-                )}
-                <TextField
-                  id="proof-text-field"
-                  label="Preuve"
-                  multiline
-                  value={proofStr}
-                  onChange={e => setProof(e.target.value)}
-                  disabled={!editable}
-                />
-                <Button disabled onClick={() => setEditable(!editable)}>
-                  {!editable ? 'Editer Gumdrop' : 'Stop Edition'}
-                </Button>
-              </Stack>
-            </CollapsePanel>
-          </Stack>
-        </CollapsePanel>
-      ) : (
-        <Box style={{ flex: 1 }}>
-          <p>Connectez votre portefeuille.</p>
-        </Box>
-      )}
+                  {params.pin !== 'NA' && (
+                    <TextField
+                      id="pin-text-field"
+                      label="Pin"
+                      value={pinStr}
+                      onChange={e => setPin(e.target.value)}
+                      disabled={!editable}
+                    />
+                  )}
+                  <TextField
+                    id="proof-text-field"
+                    label="Preuve"
+                    multiline
+                    value={proofStr}
+                    onChange={e => setProof(e.target.value)}
+                    disabled={!editable}
+                  />
+                  <Button hidden onClick={() => setEditable(!editable)}>
+                    {!editable ? 'Editer Gumdrop' : 'Stop Edition'}
+                  </Button>
+                </Stack>
+              </CollapsePanel>
+            </Stack>
+          </CollapsePanel>
+        ) : (
+          <Box sx={{ my: 5 }}>
+            <p>Connectez votre portefeuille.</p>
+          </Box>
+        )}
+      </Box>
 
       <Box />
 
@@ -1487,9 +1489,12 @@ export const Claim = (props: RouteComponentProps<ClaimProps>) => {
   return (
     <Stack
       spacing={2}
+      justifyContent="space-around"
       style={{
         margin: 'auto',
+        minWidth: '75%',
         maxWidth: Math.min(width, maxWidth),
+        flex: 1,
       }}
     >
       {/* {asyncNeedsTemporalSigner && stepper} */}

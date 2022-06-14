@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import { Modal } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
@@ -40,11 +39,11 @@ export function useWindowDimensions() {
   return windowDimensions;
 }
 
-export const LogoLink = () => {
+export const LogoLink = ({ width }: any) => {
   return (
-    <Link to={`/`}>
-      <p className={'app-logo'}>Eclypse</p>
-    </Link>
+    <a href="https://eclypsesa.com/">
+      <img src={eclypseLogo} alt="logo" width={width} />
+    </a>
   );
 };
 
@@ -123,8 +122,7 @@ export const MetaplexMenu = () => {
 export const MobileNavbar = () => {
   return (
     <div id="mobile-navbar">
-      {/* <LogoLink /> */}
-      <img src={eclypseLogo} alt="logo" width={100} />
+      <LogoLink width={100} />
       <div className="mobile-menu">
         <MetaplexMenu />
       </div>
@@ -256,8 +254,7 @@ export const AppBar = () => {
       <MobileNavbar />
       <div id="desktop-navbar">
         <div className="app-left">
-          {/* <LogoLink /> */}
-          <img src={eclypseLogo} alt="logo" width={125} />
+          <LogoLink width={125} />
         </div>
         <div className="app-right">
           {!connected && (

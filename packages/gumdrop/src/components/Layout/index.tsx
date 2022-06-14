@@ -31,6 +31,8 @@ export const AppLayout = React.memo(function AppLayoutImpl(props: any) {
               paddingRight: '96px',
               paddingBottom: '30px',
               paddingTop: '-30px',
+              display: 'flex',
+              flexDirection: 'column',
             }}
           >
             {props.children}
